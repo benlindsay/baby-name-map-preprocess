@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.states {
+  fill: none;
+}
+
+.state_borders {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+.q-9 { fill:rgb(0,117,234); }
+.q-8 { fill:rgb(26,130,234); }
+.q-7 { fill:rgb(52,143,234); }
+.q-6 { fill:rgb(78,156,234); }
+.q-5 { fill:rgb(104,169,234); }
+.q-4 { fill:rgb(130,182,234); }
+.q-3 { fill:rgb(156,195,234); }
+.q-2 { fill:rgb(182,208,234); }
+.q-1 { fill:rgb(208,221,234); }
+.q0 { fill:rgb(234,234,234); }
+.q1 { fill:rgb(234,213,234); }
+.q2 { fill:rgb(234,192,234); }
+.q3 { fill:rgb(234,171,234); }
+.q4 { fill:rgb(234,150,234); }
+.q5 { fill:rgb(234,129,234); }
+.q6 { fill:rgb(234,108,234); }
+.q7 { fill:rgb(234,87,234); }
+.q8 { fill:rgb(234,66,234); }
+.q9 { fill:rgb(234,45,234); }
+
+</style>
+<body>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://d3js.org/queue.v1.min.js"></script>
+  <script src="https://d3js.org/topojson.v1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <div id="mapNameContainer" style="display: table; margin: 0 auto;">
+    Choose a name:
+    <select id="dropdown" name="Options:" onchange="changeName(this.value)">
+    </select>
+  </div>
+  <div id="mapContainer"></div>
+  <div id="yearContainer" style="display: table; margin: 0 auto;">
+    <div id="yearTextContainer" style="display: table; margin: 0 auto;">
+      <p id="yearText">Year: 1910</p>
+    </div>
+    <input id="yearSlider" type="range" min="1910" max="2014" step="1" value="1910"
+      oninput="changeYear(this.value)" onchange="changeYear(this.value)"
+      onload="changeYear(this.value)"/>
+  </div>
+  <script src="choro.js"></script>
+</body>
+</html>
