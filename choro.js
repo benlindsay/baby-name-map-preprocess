@@ -1,7 +1,7 @@
-// US_Baby_Names_Choropleth_Slider.js
+// choro.js
 //
 // Author:  Ben Lindsay
-// Date:    January 2016
+// Date:    July 2016
 
 var US;         // US Topo data from bl.ocks.org/mbostock/raw/4090846/us.json
 var DATA;       // Data by state and year for current name
@@ -11,13 +11,13 @@ var MAX_PERCENT = 5;
 var MAP_WIDTH_FRAC = 0.7;
 var MAP_ASPECT_RATIO = 600 / 960; // Height / width
 
-var mapDiv = d3.select("#mapContainer");
-var container_width = $("#mapContainer").width();
+var mapDiv = d3.select('#mapContainer');
+var container_width = $('#mapContainer').width();
 var map_width = container_width * MAP_WIDTH_FRAC;
 var height = map_width * MAP_ASPECT_RATIO;
-var svg = mapDiv.append("svg")
-    .attr("width", container_width)
-    .attr("height", height);
+var svg = mapDiv.append('svg')
+    .attr('width', container_width)
+    .attr('height', height);
 
 var rateById = d3.map();
 
@@ -28,10 +28,10 @@ var projection = d3.geo.albersUsa()
 var path = d3.geo.path()
     .projection(projection);
 
-var dropdown = d3.select("#dropdown");
+var dropdown = d3.select('#dropdown');
 
 queue()
-    .defer(d3.csv, "namelist.csv")
+    .defer(d3.csv, 'namelist.csv')
     .await(initMap);
 
 function initMap(error, d) {
@@ -42,24 +42,24 @@ function initMap(error, d) {
     NAME = NAME_PERCENT[index]['Name'];
     MAX_PERCENT = +NAME_PERCENT[index]['Percent']
 
-    var options = dropdown.selectAll("option")
+    var options = dropdown.selectAll('option')
         .data(d)
         .enter()
-        .append("option");
+        .append('option');
     options.text(function(d) { return d.Name; })
-        .attr("value", function(d, index) { return index; });
+        .attr('value', function(d, index) { return index; });
 
     document.getElementById('dropdown').selectedIndex = index;
 
     queue()
-        .defer(d3.csv, "data/" + NAME_PERCENT[index]['Name'] + ".csv")
-        .defer(d3.json, "https://bl.ocks.org/mbostock/raw/4090846/us.json")
+        .defer(d3.csv, 'data/' + NAME_PERCENT[index]['Name'] + '.csv')
+        .defer(d3.json, 'https://bl.ocks.org/mbostock/raw/4090846/us.json')
         .await(drawMap);
 }
 
 function changeName(index) {
     queue()
-        .defer(d3.csv, "data/" + NAME_PERCENT[index]['Name'] + ".csv")
+        .defer(d3.csv, 'data/' + NAME_PERCENT[index]['Name'] + '.csv')
         .await(drawMap);
     MAX_PERCENT = +NAME_PERCENT[index]['Percent'];
 }
@@ -136,18 +136,18 @@ function drawMap(error, data, us) {
     var textX = colBarX + 1.5 * colBarSquareL;
     var max_over_9 = MAX_PERCENT / 9;
 
-    svg.append("text")
-        .text(">= " + MAX_PERCENT.toFixed(3) + "% M")
-        .attr("x", textX)
-        .attr("y", height / 2 + 9.8 * colBarSquareL);
+    svg.append('text')
+        .text('>= ' + MAX_PERCENT.toFixed(3) + '% M')
+        .attr('x', textX)
+        .attr('y', height / 2 + 9.8 * colBarSquareL);
 
-    svg.append("text")
-        .text("< " + max_over_9.toFixed(3) + "% F/M")
-        .attr("x", textX)
-        .attr("y", height / 2 + 0.8 * colBarSquareL);
+    svg.append('text')
+        .text('< ' + max_over_9.toFixed(3) + '% F/M')
+        .attr('x', textX)
+        .attr('y', height / 2 + 0.8 * colBarSquareL);
 
-    svg.append("text")
-        .text(">= " + MAX_PERCENT.toFixed(3) + "% F")
-        .attr("x", textX)
-        .attr("y", height / 2 - 8.2 * colBarSquareL);
+    svg.append('text')
+        .text('>= ' + MAX_PERCENT.toFixed(3) + '% F')
+        .attr('x', textX)
+        .attr('y', height / 2 - 8.2 * colBarSquareL);
 }
